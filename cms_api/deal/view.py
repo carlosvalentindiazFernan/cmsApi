@@ -57,8 +57,6 @@ class DealsDetailVIew(Resource):
             })    
 
 
-
-
     def delete(self,deal_id):
         data =  deal_pipedrive.delete_deals(deal_id)
         return Http.pipe_response(200,data)
