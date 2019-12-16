@@ -1,23 +1,26 @@
 from cms_api.utils.http import Http
 from cms_api.middlewares.api_key import api_key
 import requests
-
+import json
 
 def get(url):
     r = requests.get(url)
-    return {'demo':'demo'}
+    return (r.json(),r.status_code)
 
 
-def post(url,params):
+def post(url,payload):
     """ Posr options """
-    return 'post'
+    r = requests.post(url, data=json.dumps(payload))
+    return (json.loads(r.content),r.status_code)
 
 
-def delete(url,params,id):
-    return 'delete'
+def delete(url):
+    """ Delete request opttions """
+    r = requests.delete(url)
+    return (json.loads(r.content),r.status_code)
 
 
-def put(url,params,id):
-    return 'Update'
-
-
+def put(url,payload):
+    """ Update reques """
+    r = requests.put(url, data=json.dumps(payload))
+    return ({"data":{}},r.status_code)

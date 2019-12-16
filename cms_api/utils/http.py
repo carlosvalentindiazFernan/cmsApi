@@ -15,13 +15,13 @@ class Http:
         """
 
         code = data['code'] if 'code' in data else 200
-        status = 'success' if 200 <= code <= 202 else 'error'
+        status = data['success'] if 'success' in data else True
         message = data['message'] if 'message' in data else ''
-        service = data['object'] if 'object' in data else os.environ.get('APPNAME')
+        service = data['object'] if 'object' in data else os.environ.get('APP_NAME')
         route = request.path
 
         info = {
-            "object": service,
+            "service": service,
             "code": code,
             "status": status,
             "message": message,
@@ -33,3 +33,14 @@ class Http:
             info['data'] = data['data']
 
         return (info), code
+
+
+    @staticmethod
+    def pipe_response(status=200,data={}):
+        resp, code = Http.response({
+            'code': 200,
+            'success': data['success'],
+            'message': data['menssage']
+        })
+        return resp, code, {'Content-Type': 'application/json'}
+        

@@ -2,9 +2,13 @@ from cms_api.config import Config
 from flask import Flask, escape, request
 from flask_restful import Api
 from .urls import urls_path
-from cms_api.utils.connect_pipedrive import Pipedrive
+from cms_api.pipedrive.connect_pipedrive import Pipedrive
+from cms_api.pipedrive.activities import Activities
+from cms_api.pipedrive.deals import Deals
 
-pipedriveInit = Pipedrive()
+pipe_drive = Pipedrive()
+pipe_deals = Deals()
+pipe_activities = Activities()
 
 
 def create_app(config_class=Config):
@@ -22,7 +26,7 @@ def create_app(config_class=Config):
     app.config.from_object(Config)
 
     # Pipedrive Connection
-    pipedriveInit.init_api(app)
+    pipe_drive.init_api(app)
 
     #the same with database
     urls_path(app,api)

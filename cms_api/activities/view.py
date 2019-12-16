@@ -1,8 +1,9 @@
-from flask_restful import Resource, Api
+from flask_restful import reqparse, abort, Api, Resource
 from flask import Flask, request, escape
 from cms_api.utils.http import Http
 from cms_api.middlewares.api_key import api_key
 import cms_api
+
 
 class ActivitiesView(Resource):
     """ 
@@ -10,17 +11,73 @@ class ActivitiesView(Resource):
     """
     
     def get(self):
-        print(cms_api.pipedriveInit.getActivities())
-        resp, code = Http.response({
-            'code': 200,
-            'message': cms_api.pipedriveInit.getActivities()
-        })
+        """
+            Get All activities
+        """
+        query = {}
+        activities =  cms_api.pipe_activities.get_activities(query)
+        return Http.pipe_response(200,activities)
 
-        return resp, code, {'Content-Type': 'application/json'}
+
+    def post(self):
+        """
+            Create Activities
+        """
+        data = request.json
+        subject = data.get('subject')
+        type_activity = data.get('type')
+        done = data.get('done')
+
+        if subject and type_activity and done:
+            activities =  cms_api.pipe_activities.post_activities(data)
+            return Http.pipe_response(201,activities)
+        else:
+            return Http.response({
+                'code': 400,
+                'success': False,
+                'message': {'error':  'Error request data'}
+            })
 
 
-    @api_key    
-    def put(self, todo_id):
-        name = request.args.get("name", "World")
-        return Http.response({})
+
+
+class ActivityView(Resource):
+    """
+        Activity View
+    """
+
+    def get(self,activity_id):
+        activities =  cms_api.pipe_activities.details_activities(activity_id)
+        return Http.pipe_response(200,activities)
+
+
+
+    def delete(self,activity_id):
+        """
+            Delete Activities View 
+        """
+        activities =  cms_api.pipe_activities.delete_activies(activity_id)
+        return Http.pipe_response(200,activities)
+
+
+
+    def put(self, activity_id):
+        """
+            Update Activities
+        """ 
+        data = request.json
+        subject = data.get('subject')
+        type_activity = data.get('type')
+        done = data.get('done')
+
+        if subject and type_activity and done:
+            activities =  cms_api.pipe_activities.put_activies(activity_id,data)
+            return Http.pipe_response(201,activities)
+        else:
+            return Http.response({
+                'code': 400,
+                'success': False,
+                'message': {'error':  'Error request data'}
+            })
+
 
