@@ -72,7 +72,7 @@ class ActivityView(Resource):
 
         if subject and type_activity and done:
             activities =  cms_api.pipe_activities.put_activies(activity_id,data)
-            return Http.pipe_response(201,activities)
+            return Http.pipe_response(200,activities)
         else:
             return Http.response({
                 'code': 400,

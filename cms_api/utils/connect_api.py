@@ -28,7 +28,7 @@ def put(url,payload,_headers={}):
     """ Update reques """
     r = requests.put(
         url, 
-        data=json.dumps(payload),
+        data=payload,
         headers=_headers
     )
-    return ({"data":{}},r.status_code)
+    return (json.loads(r.content) ,r.status_code)
