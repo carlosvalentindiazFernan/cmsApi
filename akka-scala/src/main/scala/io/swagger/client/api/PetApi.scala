@@ -1,5 +1,5 @@
 /**
- * Swagger Petstore
+ * Swagger CmsApi
  * This is a sample Petstore server.  You can find  out more about Swagger at  [http://swagger.io](http://swagger.io) or on  [irc.freenode.net, #swagger](http://swagger.io/irc/). 
  *
  * OpenAPI spec version: 1.0.0
@@ -24,18 +24,6 @@ object PetApi {
    * 
    * 
    * Expected answers:
-   *   code 405 :  (Invalid input)
-   * 
-   * @param body Pet object that needs to be added to the store
-   */
-  def addPet(body: Pet): ApiRequest[Unit] =
-    ApiRequest[Unit](ApiMethods.POST, "https://virtserver.swaggerhub.com/carlosvalentindiazFernan/CmsApi/1.0.0", "/pet", "application/json")
-      .withBody(body)
-      .withErrorResponse[Unit](405)
-        /**
-   * 
-   * 
-   * Expected answers:
    *   code 400 :  (Invalid ID supplied)
    *   code 404 :  (Pet not found)
    * 
@@ -43,25 +31,11 @@ object PetApi {
    * @param apiKey 
    */
   def deletePet(petId: Long, apiKey: Option[String] = None): ApiRequest[Unit] =
-    ApiRequest[Unit](ApiMethods.DELETE, "https://virtserver.swaggerhub.com/carlosvalentindiazFernan/CmsApi/1.0.0", "/pet/{petId}", "application/json")
+    ApiRequest[Unit](ApiMethods.DELETE, "https://virtserver.swaggerhub.com/carlosvalentindiazFernan/CmsApi/1.0.0", "/activities/{petId}", "application/json")
       .withPathParam("petId", petId)
       .withHeaderParam("api_key", apiKey)
       .withErrorResponse[Unit](400)
       .withErrorResponse[Unit](404)
-        /**
-   * Multiple status values can be provided with comma separated strings
-   * 
-   * Expected answers:
-   *   code 200 : Seq[Pet] (successful operation)
-   *   code 400 :  (Invalid status value)
-   * 
-   * @param status Status values that need to be considered for filter
-   */
-  def findPetsByStatus(status: Seq[String]): ApiRequest[Seq[Pet]] =
-    ApiRequest[Seq[Pet]](ApiMethods.GET, "https://virtserver.swaggerhub.com/carlosvalentindiazFernan/CmsApi/1.0.0", "/pet/findByStatus", "application/json")
-      .withQueryParam("status", ArrayValues(status, MULTI))
-      .withSuccessResponse[Seq[Pet]](200)
-      .withErrorResponse[Unit](400)
         /**
    * Muliple tags can be provided with comma separated strings. Use\\ \\ tag1, tag2, tag3 for testing.
    * 
@@ -77,26 +51,6 @@ object PetApi {
       .withSuccessResponse[Seq[Pet]](200)
       .withErrorResponse[Unit](400)
         /**
-   * Returns a single pet
-   * 
-   * Expected answers:
-   *   code 200 : Pet (successful operation)
-   *   code 400 :  (Invalid ID supplied)
-   *   code 404 :  (Pet not found)
-   * 
-   * Available security schemes:
-   *   api_key (apiKey)
-   * 
-   * @param petId ID of pet to return
-   */
-  def getPetById(petId: Long)(implicit apiKey: ApiKeyValue): ApiRequest[Pet] =
-    ApiRequest[Pet](ApiMethods.GET, "https://virtserver.swaggerhub.com/carlosvalentindiazFernan/CmsApi/1.0.0", "/pet/{petId}", "application/json")
-      .withApiKey(apiKey, "api_key", HEADER)
-      .withPathParam("petId", petId)
-      .withSuccessResponse[Pet](200)
-      .withErrorResponse[Unit](400)
-      .withErrorResponse[Unit](404)
-        /**
    * 
    * 
    * Expected answers:
@@ -107,7 +61,7 @@ object PetApi {
    * @param body Pet object that needs to be added to the store
    */
   def updatePet(body: Pet): ApiRequest[Unit] =
-    ApiRequest[Unit](ApiMethods.PUT, "https://virtserver.swaggerhub.com/carlosvalentindiazFernan/CmsApi/1.0.0", "/pet", "application/json")
+    ApiRequest[Unit](ApiMethods.PUT, "https://virtserver.swaggerhub.com/carlosvalentindiazFernan/CmsApi/1.0.0", "/activity", "application/json")
       .withBody(body)
       .withErrorResponse[Unit](400)
       .withErrorResponse[Unit](404)
@@ -123,7 +77,7 @@ object PetApi {
    * @param status Updated status of the pet
    */
   def updatePetWithForm(petId: Long, name: Option[String] = None, status: Option[String] = None): ApiRequest[Unit] =
-    ApiRequest[Unit](ApiMethods.POST, "https://virtserver.swaggerhub.com/carlosvalentindiazFernan/CmsApi/1.0.0", "/pet/{petId}", "application/x-www-form-urlencoded")
+    ApiRequest[Unit](ApiMethods.POST, "https://virtserver.swaggerhub.com/carlosvalentindiazFernan/CmsApi/1.0.0", "/activities/{petId}", "application/x-www-form-urlencoded")
       .withFormParam("name", name)
       .withFormParam("status", status)
       .withPathParam("petId", petId)

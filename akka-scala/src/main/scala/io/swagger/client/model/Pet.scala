@@ -1,5 +1,5 @@
 /**
- * Swagger Petstore
+ * Swagger CmsApi
  * This is a sample Petstore server.  You can find  out more about Swagger at  [http://swagger.io](http://swagger.io) or on  [irc.freenode.net, #swagger](http://swagger.io/irc/). 
  *
  * OpenAPI spec version: 1.0.0
@@ -16,23 +16,9 @@ import org.joda.time.DateTime
 import java.util.UUID
 
 case class Pet (
-  id: Option[Long] = None,
-  category: Option[Category] = None,
-  name: String,
-  photoUrls: Seq[String],
-  tags: Option[Seq[Tag]] = None,
-  /* pet status in the store */
-  status: Option[PetEnums.Status] = None
+  subject: Option[String] = None,
+  `type`: Option[String] = None,
+  done: Option[String] = None
 ) extends ApiModel
 
-object PetEnums {
-
-  type Status = Status.Value
-  object Status extends Enumeration {
-    val Available = Value("available")
-    val Pending = Value("pending")
-    val Sold = Value("sold")
-  }
-
-}
 

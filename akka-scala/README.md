@@ -1,6 +1,6 @@
 # swagger-client
 
-Swagger Petstore
+Swagger CmsApi
 - API version: 1.0.0
 
 This is a sample Petstore server.  You can find  out more about Swagger at  [http://swagger.io](http://swagger.io) or on  [irc.freenode.net, #swagger](http://swagger.io/irc/). 
@@ -65,13 +65,13 @@ All URIs are relative to *https://virtserver.swaggerhub.com/carlosvalentindiazFe
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*PetApi* | **addPet** | **POST** /pet | Add a new pet to the store
-*PetApi* | **deletePet** | **DELETE** /pet/{petId} | Deletes a pet
-*PetApi* | **findPetsByStatus** | **GET** /pet/findByStatus | Finds Pets by status
+*ActivitiesApi* | **addPet** | **POST** /activity | Add a new activity
+*ActivitiesApi* | **findPetsByStatus** | **GET** /activities | Finds Pets by status
+*ActivitiesApi* | **getActivityById** | **GET** /activities/{petId} | Find activity by ID
+*PetApi* | **deletePet** | **DELETE** /activities/{petId} | Deletes a pet
 *PetApi* | **findPetsByTags** | **GET** /pet/findByTags | Finds Pets by tags
-*PetApi* | **getPetById** | **GET** /pet/{petId} | Find pet by ID
-*PetApi* | **updatePet** | **PUT** /pet | Update an existing pet
-*PetApi* | **updatePetWithForm** | **POST** /pet/{petId} | Updates a pet in the store with form data
+*PetApi* | **updatePet** | **PUT** /activity | Update an existing pet
+*PetApi* | **updatePetWithForm** | **POST** /activities/{petId} | Updates a pet in the store with form data
 *PetApi* | **uploadFile** | **POST** /pet/{petId}/uploadImage | uploads an image
 *StoreApi* | **deleteOrder** | **DELETE** /store/order/{orderId} | Delete purchase order by ID
 *StoreApi* | **getInventory** | **GET** /store/inventory | Returns pet inventories by status
@@ -90,10 +90,8 @@ Class | Method | HTTP request | Description
 ## Documentation for Models
 
  - [ApiResponse](ApiResponse.md)
- - [Category](Category.md)
  - [Order](Order.md)
  - [Pet](Pet.md)
- - [Tag](Tag.md)
  - [User](User.md)
 
 
