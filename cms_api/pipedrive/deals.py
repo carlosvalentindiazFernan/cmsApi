@@ -37,19 +37,28 @@ class Deals(Pipedrive):
         
 
 
-    def post_deals(self):
+    def post_deals(self,params):
         """
             Post deals
         """
-        return post(f'{self._url()}',None)
+        url = f'{self._url()}deals?api_token={self._key()}'
+        result,status = post(url,params,{
+            'Content-Type': 'application/json'
+        })
+        return self.parse_status_created(status,result)
 
 
 
-    def put_deals(self):
+    def put_deals(self,id,payload):
         """
             Put deals
         """
-        return put(f'{self._url()}',None,None)
+        url = f'{self._url()}deals/{id}?api_token={self._key()}'
+        result,status = put(url,payload,{
+            "Content-Type": "application/json",
+            "Content-Type": "application/x-www-form-urlencoded"
+        })
+        return self.parse_status_ok(status,result)
 
 
 

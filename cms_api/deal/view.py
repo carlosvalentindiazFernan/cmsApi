@@ -17,10 +17,20 @@ class DealView(Resource):
         data =  deal_pipedrive.get_deals(query)
         return Http.pipe_response(200,data)
     
+
     def post(self):
-        name = request.args.get("name", "World")
-        return f'Deal, {escape(name)}!'
-    
+        data = request.json
+        title = data.get('title')
+
+        if title :
+            response_data =  deal_pipedrive.post_deals(data)
+            return Http.pipe_response(201,response_data)
+        else:
+            return Http.response({
+                'code': 400,
+                'success': False,
+                'message': {'error':  'Error request data'}
+            })    
 
 
 class DealsDetailVIew(Resource):
@@ -34,8 +44,19 @@ class DealsDetailVIew(Resource):
 
 
     def put(self, deal_id):
-        name = request.args.get("name", "World")
-        return f'Deal, {escape(name)}!'
+        data = request.json
+
+        if data:
+            response_data = deal_pipedrive.put_deals(deal_id,data)
+            return Http.pipe_response(200,response_data)
+        else:
+            return Http.response({
+                'code': 400,
+                'success': False,
+                'message': {'error':  'Error request data'}
+            })    
+
+
 
 
     def delete(self,deal_id):
