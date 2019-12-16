@@ -8,13 +8,13 @@ def get(url):
     return (r.json(),r.status_code)
 
 
-def post(url,payload):
+def post(url,payload, _headers = {}):
     """ Posr options """
-    r = requests.post(url, data=json.dumps(payload))
+    r = requests.post(url, data=json.dumps(payload), headers=_headers)
     return (json.loads(r.content),r.status_code)
 
 
-def delete(url):
+def delete(url,_headers={}):
     """ Delete request opttions """
     r = requests.delete(url)
     return (json.loads(r.content),r.status_code)

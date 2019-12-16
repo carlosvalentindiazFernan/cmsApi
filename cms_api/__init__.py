@@ -4,10 +4,8 @@ from flask_restful import Api
 from .urls import urls_path
 from cms_api.pipedrive.connect_pipedrive import Pipedrive
 from cms_api.pipedrive.activities import Activities
-from cms_api.pipedrive.deals import Deals
 
 pipe_drive = Pipedrive()
-pipe_deals = Deals()
 pipe_activities = Activities()
 
 

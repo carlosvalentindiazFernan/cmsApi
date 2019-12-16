@@ -11,19 +11,13 @@ class Deals(Pipedrive):
             Get deals
         """
 
-        url = f'{self._url()}activities?limit=10' 
+        url = f'{self._url()}deals?limit=10' 
 
         if params.__contains__('user_id'):
             url += f'&user_id={params.get("user_id")}'
 
         if params.__contains__('filter_id'):
             url += f'&filter_id={params.get("filter_id")}'
-
-        if params.__contains__('type'):
-            url += f'&type={params.get("type")}'
-
-        if params.__contains__('done'):
-            url += f'&done={params.get("done")}'
         
         if params.__contains__('start'):
             url += f'&start={params.get("start")}'
@@ -32,30 +26,14 @@ class Deals(Pipedrive):
 
 
         url += f'&api_token={self._key()}'
-
         result,status = get(url)
-
-        data_request = {}
-
-        if status != 200:
-           data_request = {
-               'success':result.get('success'),
-               'menssage': {
-                 'error': result.get('error')                               
-               }                 
-           }
-        else:
-
-           data_request = {
-               'success':result.get('success'),
-               'menssage': result['data']                 
-           }
-           
-        return data_request
+        return self.parse_status_ok(status,result)    
 
 
     def details_deals(self,id):
-        url = f'{self._url()}activities/{id}?api_token={self._key()}'
+        url = f'{self._url()}deals/{id}?api_token={self._key()}'
+        result,status = get(url)
+        return self.parse_status_ok(status,result)           
         
 
 
@@ -75,11 +53,16 @@ class Deals(Pipedrive):
 
 
 
-    def delete_deals(self):
+    def delete_deals(self,id):
         """
             delete deals
         """
-        return delete(f'{self._url()}',None,None)
+        url = f'{self._url()}deals/{id}?api_token={self._key()}'
+        print(url)
+        result,status = delete(url,{
+            'Content-Type': 'application/json'
+        })
+        return self.parse_status_ok(status,result)           
 
 
 
