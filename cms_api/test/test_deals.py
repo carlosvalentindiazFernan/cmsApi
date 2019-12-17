@@ -3,7 +3,7 @@ from cms_api import Config
 import pytest
 import unittest
 import cms_api
-
+import json
 
 class DealsUniTest(unittest.TestCase):
     """ deals Uni test """
@@ -28,16 +28,44 @@ class DealsUniTest(unittest.TestCase):
         self.assertEqual(response.status_code,200)
 
 
+    def test_create_deals_error(self):
+        item = {"demo": "some_item"}
+        response = self.app.post(f'{self._url}/deals',
+                                 data=json.dumps(item),
+                                 content_type='application/json')
+    
+        data = json.loads(response.get_data())
+        self.assertEqual(data['status'], False)
+        self.assertEqual(response.status_code, 400)
+
+
     def test_create_deals(self):
-        response = self.app.get(f'{self._url}/deals')        
+        item = {"title": "some_activity"}
+        response = self.app.post(f'{self._url}/deals',
+                                 data=json.dumps(item),
+                                 content_type='application/json')
+    
+        data = json.loads(response.get_data())
+        self.assertEqual(data['status'], True)
+        self.assertEqual(response.status_code, 201)
+
+
+    def test_update_deal(self):
+        item = {
+            "title": "demo_update",
+            "user_id": "1"
+        }
+        response = self.app.put(f'{self._url}/deals/1',
+                                 data=json.dumps(item),
+                                 content_type='application/json')
+        data = json.loads(response.get_data())
+        self.assertEqual(data['status'], True)
         self.assertEqual(response.status_code,200)
 
 
     def test_delete_deal(self):
-        response = self.app.get(f'{self._url}/deals')        
+        response = self.app.delete(f'{self._url}/deals/1')        
+        data = json.loads(response.get_data())
+        self.assertEqual(data['status'], True)
         self.assertEqual(response.status_code,200)
 
-
-    def test_update_deal(self):
-        response = self.app.get(f'{self._url}/deals')        
-        self.assertEqual(response.status_code,200)

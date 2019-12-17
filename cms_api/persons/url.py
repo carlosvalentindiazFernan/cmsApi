@@ -1,7 +1,6 @@
 from .view import (
     PersonsView,
     PersonsDetailView,
-    PersonsActivitiesView,
     PersonsDealsView
 )
 """

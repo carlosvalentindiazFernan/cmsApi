@@ -42,7 +42,7 @@ class ActivitiesUniTest(unittest.TestCase):
     def test_create_activities_success(self):
         item = {
             "subject": "gatoa",
-            "type": "scrum",
+            "type": "call",
             "done": "0"
         }
         response = self.app.post(f'{self._url}/activities',
@@ -50,7 +50,7 @@ class ActivitiesUniTest(unittest.TestCase):
                                  content_type='application/json')
         data = json.loads(response.get_data())
         self.assertEqual(data['status'], True)
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 201)
 
 
 
