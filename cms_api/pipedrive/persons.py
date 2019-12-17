@@ -48,11 +48,16 @@ class Persons(Pipedrive):
         return self.parse_status_created(status,result)
 
 
-    def put_persons(self):
+    def put_persons(self,id,payload):
         """
             Put persons
         """
-        return put(f'{self._url()}',None,None)
+        url = f'{self._url()}persons/{id}?api_token={self._key()}'
+        result,status = put(url,payload,{
+            "Content-Type": "application/json",
+            "Content-Type": "application/x-www-form-urlencoded"
+        })
+        return self.parse_status_ok(status,result)
 
 
 

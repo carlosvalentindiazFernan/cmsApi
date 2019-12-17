@@ -58,6 +58,22 @@ class PersonsDetailView(Resource):
         return Http.pipe_response(200,data)
 
 
+    def put(self, activity_id):
+        """
+            Update Activities
+        """ 
+        data = request.json
+
+        if data:
+            data_persons =  persons.put_persons(activity_id,data)
+            return Http.pipe_response(200,data_persons)
+        else:
+            return Http.response({
+                'code': 400,
+                'success': False,
+                'message': {'error':  'Error request data'}
+            })
+
 
 class PersonsActivitiesView(Resource):
     """

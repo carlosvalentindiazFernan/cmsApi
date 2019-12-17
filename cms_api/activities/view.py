@@ -2,6 +2,7 @@ from flask_restful import reqparse, abort, Api, Resource
 from flask import Flask, request, escape
 from cms_api.utils.http import Http
 from cms_api.middlewares.api_key import api_key
+from cms_api.utils.logger import info
 import cms_api
 
 
@@ -16,6 +17,7 @@ class ActivitiesView(Resource):
         """
         query = {}
         activities =  cms_api.pipe_activities.get_activities(query)
+        info(f'Gel all  activities')
         return Http.pipe_response(200,activities)
 
 
@@ -47,6 +49,9 @@ class ActivityView(Resource):
     """
 
     def get(self,activity_id):
+        """
+            Get Activities by id
+        """
         activities =  cms_api.pipe_activities.details_activities(activity_id)
         return Http.pipe_response(200,activities)
 

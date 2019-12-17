@@ -24,7 +24,7 @@ def create_app(config_class=Config):
     app.config.from_object(Config)
 
     # Pipedrive Connection
-    pipe_drive.init_api(app)
+#    pipe_drive.init_api(app)
 
     #the same with database
     urls_path(app,api)
