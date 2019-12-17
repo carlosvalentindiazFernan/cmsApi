@@ -3,7 +3,7 @@ from cms_api import Config
 import pytest
 import unittest
 import cms_api
-
+import json
 
 class ActivitiesUniTest(unittest.TestCase):
     """ Activities Uni test """
@@ -28,16 +28,47 @@ class ActivitiesUniTest(unittest.TestCase):
         self.assertEqual(response.status_code,200)
 
 
-    def test_create_activities(self):
-        response = self.app.get(f'{self._url}/activities')        
-        self.assertEqual(response.status_code,200)
+    def test_create_activities_error(self):
+        item = {"demo": "some_item"}
+        response = self.app.post(f'{self._url}/activities',
+                                 data=json.dumps(item),
+                                 content_type='application/json')
+    
+        data = json.loads(response.get_data())
+        self.assertEqual(data['status'], False)
+        self.assertEqual(response.status_code, 400)
+
+
+    def test_create_activities_success(self):
+        item = {
+            "subject": "gatoa",
+            "type": "scrum",
+            "done": "0"
+        }
+        response = self.app.post(f'{self._url}/activities',
+                                 data=json.dumps(item),
+                                 content_type='application/json')
+        data = json.loads(response.get_data())
+        self.assertEqual(data['status'], True)
+        self.assertEqual(response.status_code, 200)
+
 
 
     def test_delete_activity(self):
-        response = self.app.get(f'{self._url}/activities')        
+        response = self.app.delete(f'{self._url}/activities/1')        
+        data = json.loads(response.get_data())
+        self.assertEqual(data['status'], True)
         self.assertEqual(response.status_code,200)
 
 
     def test_update_activity(self):
-        response = self.app.get(f'{self._url}/activities')        
+        item = {
+            "subject": "demo",
+            "done": "0"
+        }
+        response = self.app.put(f'{self._url}/activities/1',
+                                 data=json.dumps(item),
+                                 content_type='application/json')
+        data = json.loads(response.get_data())
+        self.assertEqual(data['status'], True)
         self.assertEqual(response.status_code,200)

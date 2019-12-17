@@ -71,11 +71,8 @@ class ActivityView(Resource):
             Update Activities
         """ 
         data = request.json
-        subject = data.get('subject')
-        type_activity = data.get('type')
-        done = data.get('done')
 
-        if subject and type_activity and done:
+        if data:
             activities =  cms_api.pipe_activities.put_activies(activity_id,data)
             return Http.pipe_response(200,activities)
         else:
