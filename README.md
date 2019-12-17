@@ -31,7 +31,7 @@ APP_NAME=''
 ### Running
 
 
-```
+``` 
 $ flask run
 
 ```
@@ -60,13 +60,11 @@ Class | HTTP request | Description
 *Activities* | **GET** /activities/{activity_id} | Find activity by ID
 *Activities* | **PUT** /activities/{activity_id} | Uploads activity by ID
 *Activities* | **DELETE** /activities/{activity_id} | Delete activity by ID
-
 *Deals* | **POST** /deals | Add a new deals
 *Deals* | **GET** /deals | Finds deals by status
 *Deals* | **GET** /deals/{deals_id} | Find deals by ID
 *Deals* | **PUT** /deals/{deals_id} | Uploads deals by ID
 *Deals* | **DELETE** /deals/{deals_id} | Delete deals by ID
-
 *Persons* | **POST** /persons | Add a new persons
 *Persons* | **GET** /persons | Finds persons by status
 *Persons* | **GET** /persons/{persons_id} | Find persons by ID
